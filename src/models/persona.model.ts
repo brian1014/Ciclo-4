@@ -1,7 +1,8 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Pedido} from './pedido.model';
 
 @model()
-export class Prospecto extends Entity {
+export class Persona extends Entity {
   @property({
     type: 'string',
     id: true,
@@ -13,13 +14,13 @@ export class Prospecto extends Entity {
     type: 'string',
     required: true,
   })
-  nombre: string;
+  nombres: string;
 
   @property({
     type: 'string',
     required: true,
   })
-  apellido: string;
+  apellidos: string;
 
   @property({
     type: 'string',
@@ -35,18 +36,20 @@ export class Prospecto extends Entity {
 
   @property({
     type: 'string',
-    required: true,
+    required: false,
   })
-  comentario: string;
+  clave: string;
 
+  @hasMany(() => Pedido)
+  pedidos: Pedido[];
 
-  constructor(data?: Partial<Prospecto>) {
+  constructor(data?: Partial<Persona>) {
     super(data);
   }
 }
 
-export interface ProspectoRelations {
+export interface PersonaRelations {
   // describe navigational properties here
 }
 
-export type ProspectoWithRelations = Prospecto & ProspectoRelations;
+export type PersonaWithRelations = Persona & PersonaRelations;
